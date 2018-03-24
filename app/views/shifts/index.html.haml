@@ -1,0 +1,78 @@
+%p#notice= notice
+%p#alert= alert
+%h1
+  Shifts
+  = @date.strftime('%Y/%m/%d')
+  &mdash;
+  = (@date + 6.days).strftime('%Y/%m/%d')
+%h2
+  = @lengths[:week].values.sum
+  - unless @lengths[:week].values.one?
+    = surround '(', ')' do
+      = @lengths[:week].values.map(&:to_s).join ' / '
+
+= link_to 'Back', shifts_path(date: @date - 1.week)
+= link_to 'Forward', shifts_path(date: @date + 1.week)
+
+
+- if @shifts.present?
+  %table.calendar
+    %thead
+      %th
+      - first_hour_marked = false
+      - @chunk_range.each do |n|
+        - if n % 4 == 0
+          %th{ colspan: 4 }
+            = (@date + 15 * n.minutes).strftime('%l%P')[0..-2]
+          - first_hour_marked = true
+        - elsif !first_hour_marked
+          %th
+    %tbody
+      - @dates.each do |date|
+        %tr
+          %td.totals= date.strftime '%A, %-m/%-d'
+          - @chunk_range.each do |n|
+            - start = date + (15 * n).minutes
+            - shift = @chunks.each_pair.find{ |chunks, shift| chunks.include? start }.try(:last)
+            - if shift
+              - if shift.mbta?
+                %td.mbta
+              - else
+                %td.pvta
+            - else
+              %td
+          - if @lengths.key? date
+            %td.totals
+              = @lengths[date].values.sum
+              - unless @lengths[date].values.one?
+                = surround '(', ')' do
+                  = @lengths[date].values.map(&:to_s).join ' / '
+        %tr.spacing
+          %td
+
+%table.list
+  %thead
+    %tr
+      %th Start
+      %th Length
+      %th MBTA
+      %th
+      %th
+  %tbody
+    %tr.new
+      = form_with model: Shift.new, local: true do |form|
+        %td= form.text_field :start, value: (@date + 8.5.hours).strftime('%Y/%m/%d %H:%M'),
+          class: 'datetimepick'
+        %td= form.number_field :length, value: 8.0, step: 0.25
+        %td= form.check_box :mbta, checked: true
+        %td= form.submit
+        %td
+    - @shifts.each do |shift|
+      %tr
+        = form_with model: shift, local: true do |form|
+          %td= form.text_field :start, value: shift.start.strftime('%Y/%m/%d %H:%M'),
+            class: 'datetimepick'
+          %td= form.number_field :length, step: 0.25
+          %td= form.check_box :mbta
+          %td= form.submit
+        %td= button_to 'Destroy', shift, method: :delete

@@ -1,0 +1,39 @@
+// Place all the styles related to the Shifts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+table.calendar{
+  border-collapse: collapse;
+  thead th{
+    font-size: 8px;
+    text-align: left;
+  }
+  tbody{
+    tr.spacing td{
+      padding: 2px;
+    }
+    tr:not(.spacing) td{
+      height: 50px;
+      &:not(.totals){
+        max-width: 15px;
+      }
+      &.mbta{
+        background-color: purple;
+      }
+      &.pvta{
+        background-color: green;
+      }
+    }
+  }
+}
+
+table.list{
+  border-collapse: collapse;
+  tbody{
+    td{
+      padding: 10px;
+    }
+    tr.new td{
+      background: lemonchiffon;
+    }
+  }
+}

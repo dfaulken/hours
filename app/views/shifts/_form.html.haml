@@ -1,0 +1,20 @@
+= form_with(model: shift, local: true) do |form|
+  - if shift.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(shift.errors.count, "error")
+        prohibited this shift from being saved:
+      %ul
+        - shift.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :start
+    = form.datetime_select :start, id: :shift_start
+  .field
+    = form.label :length
+    = form.text_field :length, id: :shift_length
+  .field
+    = form.label :mbta
+    = form.check_box :mbta, id: :shift_mbta
+  .actions
+    = form.submit

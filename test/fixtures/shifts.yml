@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start: 2018-03-24 11:52:38
+  length: 1.5
+  mbta: false
+
+two:
+  start: 2018-03-24 11:52:38
+  length: 1.5
+  mbta: false
