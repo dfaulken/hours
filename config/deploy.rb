@@ -1,5 +1,7 @@
 lock "~> 3.10.1"
 
+server 'hours.davidfaulkenberry.com', roles: %w[app db web]
+
 # Things I understand
 set :application, "hours"
 set :repo_url, "git@example.com:dfaulken/hours.git"
@@ -8,6 +10,7 @@ set :stage, :production
 set :user, 'dave'
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
 set :linked_files, %w{config/database.yml config/secrets.yml.key}
+set :rbenv_ruby, '2.5.0'
 
 # Things I don't understand
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
