@@ -1,10 +1,10 @@
 lock "~> 3.10.1"
 
-server 'hours.davidfaulkenberry.com', roles: %w[app db web]
+server '159.89.86.37', roles: %w[app db web]
 
 # Things I understand
 set :application, "hours"
-set :repo_url, "git@example.com:dfaulken/hours.git"
+set :repo_url, "git@github.com:dfaulken/hours.git"
 set :deploy_to, '/srv/hours'
 set :stage, :production
 set :user, 'dave'
