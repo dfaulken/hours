@@ -6,6 +6,7 @@ gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'haml-rails'
+gem 'coffee-rails'
 source 'https://rails-assets.org/' do
   gem 'rails-assets-jquery'
   gem 'rails-assets-datetimepicker'
