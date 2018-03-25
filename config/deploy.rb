@@ -9,7 +9,7 @@ set :deploy_to, '/srv/hours'
 set :stage, :production
 set :user, 'dave'
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :linked_files, %w{config/database.yml config/secrets.yml.key}
+set :linked_files, %w{config/database.yml config/secrets.yml.key db/production.sqlite3}
 set :rbenv_ruby, '2.5.0'
 
 # Things I don't understand
